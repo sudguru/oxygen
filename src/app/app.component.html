@@ -14,7 +14,18 @@
         </ul>
       </nav>
     </header>
-    
+    <mat-toolbar color="accent">
+      <div class="button-row">
+        <a mat-button routerLink="">Dashboard</a>
+        <a mat-button routerLink="./products">Products</a>
+        <a mat-button routerLink="party-rates">Party & Rates</a>
+        <a mat-button routerLink="containers">Containers</a>
+        <a mat-button routerLink="transactions">Transactions</a>
+        <a mat-button routerLink="reports">Reports</a>
+        <a mat-button routerLink="users">Users</a>
+        <a mat-button routerLink="help">Help</a>
+      </div>
+    </mat-toolbar>
     <main>
         <router-outlet></router-outlet>
     </main>

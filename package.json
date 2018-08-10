@@ -37,7 +37,10 @@
     "e2e": "npm run postinstall:web && ng e2e"
   },
   "dependencies": {
-    "bluebird": "^3.5.1",
+    "@angular/animations": "^6.0.5",
+    "@angular/cdk": "^6.2.0",
+    "@angular/flex-layout": "^6.0.0-beta.17",
+    "@angular/material": "^6.4.3",
     "node-cmd": "^3.0.0"
   },
   "devDependencies": {
