@@ -23,4 +23,20 @@ export class AppComponent {
       console.log('Mode web');
     }
   }
+
+  closeWindow() {
+    this.electronService.window.close();
+  }
+
+  minimizeWindow() {
+    this.electronService.window.minimize();
+  }
+
+  maximizeWindow() {
+    this.electronService.window.maximize();
+  }
+
+  resizeWindow() {
+    this.electronService.window.restore();
+  }
 }

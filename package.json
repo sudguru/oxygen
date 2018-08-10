@@ -37,6 +37,7 @@
     "e2e": "npm run postinstall:web && ng e2e"
   },
   "dependencies": {
+    "bluebird": "^3.5.1",
     "node-cmd": "^3.0.0"
   },
   "devDependencies": {

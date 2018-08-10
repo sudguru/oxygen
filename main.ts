@@ -1,6 +1,18 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+const cmd = require('node-cmd');
+cmd.get(
+  'cd ../backOxygen && npm start',
+  function(err, data, stderr) {
+    if (!err) {
+      console.log('backend started');
+    } else {
+      console.log(err);
+    }
+  }
+);
+
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -21,9 +33,9 @@ function createWindow() {
   });
 
   if (serve) {
-    require('electron-reload')(__dirname, {
-     electron: require(`${__dirname}/node_modules/electron`)});
-    win.loadURL('http://localhost:4200');
+      require('electron-reload')(__dirname, {
+      electron: require(`${__dirname}/node_modules/electron`)});
+      win.loadURL('http://localhost:4200');
   } else {
     win.loadURL(url.format({
       pathname: path.join(__dirname, 'dist/index.html'),

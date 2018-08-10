@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ElectronService } from '../../providers/electron.service';
+
 
 @Component({
   selector: 'app-home',
@@ -8,25 +8,9 @@ import { ElectronService } from '../../providers/electron.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private electron: ElectronService) { }
+  constructor() { }
 
   ngOnInit() {
-  }
-
-  closeWindow() {
-    this.electron.window.close();
-  }
-
-  minimizeWindow() {
-    this.electron.window.minimize();
-  }
-
-  maximizeWindow() {
-    this.electron.window.maximize();
-  }
-
-  resizeWindow() {
-    this.electron.window.restore();
   }
 
 }
