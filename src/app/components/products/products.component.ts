@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { ProductEditComponent } from './../product-edit/product-edit.component';
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product.model';
@@ -22,14 +24,36 @@ export class ProductsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.productService.getProducts().then((res: Result) => {
-      // console.log(res.data);
+    this.getProducts();
+  }
+
+  getProducts () {
+    this.productService.getProducts().subscribe((res: Result) => {
       this.products = res.data;
+      console.log(this.products);
     });
   }
 
   edit(product: Product) {
-    // edit
+    const dialogRef = this.dialog.open(ProductEditComponent, {
+      width: '650px',
+      disableClose: true,
+      autoFocus: true,
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // this.productService.deleteProduct(product.id).then(res => {
+        //   console.log(res);
+        //   if (res) {
+        //     this.snackbar.open(`${product.name} successfully deleted.`);
+        //   } else {
+        //     this.snackbar.open(`${product.name} could not be deleted.`);
+        //   }
+        // });
+      }
+    });
   }
 
   delete (product: Product) {
@@ -46,9 +70,10 @@ export class ProductsComponent implements OnInit {
         this.productService.deleteProduct(product.id).then(res => {
           console.log(res);
           if (res) {
-            this.snackbar.open(`${product.name} successfully deleted.`);
+            this.snackbar.open(`${product.name} successfully deleted.`, '', { duration: 500 });
+            this.getProducts();
           } else {
-            this.snackbar.open(`${product.name} could not be deleted.`);
+            this.snackbar.open(`${product.name} could not be deleted.`, '', { duration: 500 });
           }
         });
       }
