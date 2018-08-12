@@ -24,6 +24,7 @@ import { ProductsComponent } from './components/products/products.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './modules/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AlertComponent } from './components/dialogs/alert/alert.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -35,7 +36,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     HomeComponent,
     WebviewDirective,
-    ProductsComponent
+    ProductsComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +56,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FlexLayoutModule
   ],
   providers: [ElectronService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AlertComponent]
 })
 export class AppModule { }

@@ -9,6 +9,19 @@ export class ProductsService {
   constructor(private http: HttpClient) { }
 
   async getProducts() {
-    return await this.http.get(`${this.endpoint}/products`).toPromise();
+    try {
+      return await this.http.get(`${this.endpoint}/products`).toPromise();
+    } catch (e) {
+      return false;
+    }
+  }
+
+  async deleteProduct(id: number) {
+    try {
+      await this.http.delete(`${this.endpoint}/products/${id}`);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

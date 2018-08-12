@@ -1,7 +1,7 @@
 <div class="container">
-    <header>
-      <strong><span>O<sub>2</sub></span> Oxygen</strong>
-      <nav>
+    <header fxLayout="row">
+      <strong fxFlex= "auto"><span>O<sub>2</sub></span> Oxygen</strong>
+      <nav fxFlex="70px">
         <ul>
           <li>
             <!-- <img src="../../assets/btn-min.svg" id="min" (click)="minimizeWindow()"> -->
@@ -14,7 +14,7 @@
         </ul>
       </nav>
     </header>
-    <mat-toolbar color="accent">
+    <mat-toolbar color="accent" style="overflow-x: auto">
       <div class="button-row">
         <a mat-button routerLink="">Dashboard</a>
         <a mat-button routerLink="./products">Products</a>
