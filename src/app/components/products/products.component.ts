@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import { ProductEditComponent } from './../product-edit/product-edit.component';
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
@@ -17,6 +16,7 @@ import { MatSnackBar } from '@angular/material';
 export class ProductsComponent implements OnInit {
 
   products: Product[];
+  newProduct: Product;
   constructor(
     private productService: ProductsService,
     public dialog: MatDialog,
@@ -25,33 +25,40 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {
     this.getProducts();
+    this.newProduct = {
+      id: 0,
+      name: '',
+      unit: 'm3',
+      base_rate: 0
+    };
   }
 
   getProducts () {
-    this.productService.getProducts().subscribe((res: Result) => {
+    this.productService.getProducts().then((res: Result) => {
       this.products = res.data;
       console.log(this.products);
     });
   }
 
-  edit(product: Product) {
+  addEdit(product: Product) {
     const dialogRef = this.dialog.open(ProductEditComponent, {
       width: '650px',
       disableClose: true,
       autoFocus: true,
-      data: {}
+      data: product
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        // this.productService.deleteProduct(product.id).then(res => {
-        //   console.log(res);
-        //   if (res) {
-        //     this.snackbar.open(`${product.name} successfully deleted.`);
-        //   } else {
-        //     this.snackbar.open(`${product.name} could not be deleted.`);
-        //   }
-        // });
+    dialogRef.afterClosed().subscribe(readyProduct => {
+      if (readyProduct) {
+        this.productService.addEditProduct(readyProduct).then(res => {
+          console.log(res);
+          if (res) {
+            this.snackbar.open(`${readyProduct.name} successfully added / modified.`, '', { duration: 3000 });
+            this.getProducts();
+          } else {
+            this.snackbar.open(`${readyProduct.name} could not be added / modified.`, '', { duration: 3000 });
+          }
+        });
       }
     });
   }
@@ -70,10 +77,10 @@ export class ProductsComponent implements OnInit {
         this.productService.deleteProduct(product.id).then(res => {
           console.log(res);
           if (res) {
-            this.snackbar.open(`${product.name} successfully deleted.`, '', { duration: 500 });
+            this.snackbar.open(`${product.name} successfully deleted.`, '', { duration: 3000 });
             this.getProducts();
           } else {
-            this.snackbar.open(`${product.name} could not be deleted.`, '', { duration: 500 });
+            this.snackbar.open(`${product.name} could not be deleted.`, '', { duration: 3000 });
           }
         });
       }

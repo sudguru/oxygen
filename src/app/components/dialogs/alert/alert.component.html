@@ -1,4 +1,8 @@
-<h4>Are you Sure?</h4>
-<br/>
-<button mat-raised-button (click)="closeAndSend(true)" color="primary">Yes</button>
-<button mat-button (click)="closeAndSend(false)">No</button>
+<h3 mat-dialog-title>Confirmation</h3>
+<mat-dialog-content>
+  <h5 mat-dialog-title>Are you Sure?</h5>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button (click)="closeAndSend(true)" color="primary">Yes</button>
+  <button mat-button (click)="closeAndSend(false)">No</button>
+</mat-dialog-actions>

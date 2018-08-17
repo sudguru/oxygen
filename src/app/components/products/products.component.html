@@ -1,14 +1,17 @@
+<button mat-fab class="fab-add" color="accent">
+    <mat-icon aria-label="App New Product" (click)="addEdit(newProduct)">add</mat-icon>
+</button>
 <div fxLayout="row" fxLayoutAlign="left" style="padding: 15px 5px">
-  <div fxLayout="column" fxFlex.gt-xs = "70%" fxFlex.gt-sm = "50%" fxFlex = "100%">
+  <div fxLayout="column" fxFlex="100%">
     <h3>Products</h3>
     <mat-list>
       <!-- <h3 mat-subheader>Active Products</h3> -->
       <mat-list-item *ngFor="let product of products" class="item-list">
         <mat-icon mat-list-icon>battery_std</mat-icon>
-        <h4 mat-line>{{product.name}}</h4>
-        <p mat-line> Base Rate: {{ product.base_rate | number }} </p>
-          <mat-icon (click)="edit(product)">edit</mat-icon>
-          <mat-icon style="margin-left: 10px" (click)="delete(product)">delete</mat-icon>
+        <h4 mat-line (click)="addEdit(product)" style="cursor: pointer">{{product.name}}</h4>
+        <p mat-line (click)="addEdit(product)" style="cursor: pointer">Unit: {{ product.unit}}, Base Rate: {{ product.base_rate | number }} </p>
+        <mat-icon (click)="addEdit(product)" style="cursor: pointer">edit</mat-icon>
+        <mat-icon style="margin-left: 250px" (click)="delete(product)" style="cursor: pointer">delete</mat-icon>
       </mat-list-item>
     </mat-list>
   </div>

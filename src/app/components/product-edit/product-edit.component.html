@@ -1,3 +1,20 @@
-<p>
-  product-edit works!
-</p>
+<h3 mat-dialog-title>{{ product.id === 0 ? 'Add' : 'Edit' }} Product</h3>
+<mat-dialog-content>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Product Name" [(ngModel)]="product.name">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Unit Name" [(ngModel)]="product.unit">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Base Rate" [(ngModel)]="product.base_rate">
+    </mat-form-field>
+    
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button (click)="close(product)" color="primary">Save</button>
+  <button mat-button (click)="close(null)">Cancel</button>
+</mat-dialog-actions>
