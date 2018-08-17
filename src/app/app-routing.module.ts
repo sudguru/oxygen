@@ -1,3 +1,4 @@
+import { PartyComponent } from './components/party/party.component';
 import { ProductsComponent } from './components/products/products.component';
 import { HomeComponent } from './components/home/home.component';
 import { NgModule } from '@angular/core';
@@ -11,6 +12,10 @@ const routes: Routes = [
     {
         path: 'products',
         component: ProductsComponent
+    },
+    {
+        path: 'party-rates',
+        component: PartyComponent
     }
 ];
 

@@ -9,11 +9,13 @@ import { Product } from '../../models/product.model';
 })
 export class ProductEditComponent implements OnInit {
   product: Product;
+  oldProduct: Product;
   constructor(
     private dialogRef: MatDialogRef<ProductEditComponent>,
     @Inject(MAT_DIALOG_DATA) data: Product
   ) {
     this.product = data;
+    this.oldProduct = this.product;
    }
 
   ngOnInit() {

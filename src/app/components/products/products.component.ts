@@ -25,14 +25,17 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {
     this.getProducts();
+    this.setNewProduct();
+  }
+
+  setNewProduct() {
     this.newProduct = {
       id: 0,
       name: '',
-      unit: 'm3',
+      unit: 'M3',
       base_rate: 0
     };
   }
-
   getProducts () {
     this.productService.getProducts().then((res: Result) => {
       this.products = res.data;
@@ -59,7 +62,10 @@ export class ProductsComponent implements OnInit {
             this.snackbar.open(`${readyProduct.name} could not be added / modified.`, '', { duration: 3000 });
           }
         });
+      } else {
+        this.getProducts();
       }
+      this.setNewProduct();
     });
   }
 

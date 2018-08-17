@@ -1,20 +1,23 @@
 <h3 mat-dialog-title>{{ product.id === 0 ? 'Add' : 'Edit' }} Product</h3>
+<form  #productForm="ngForm" novalidate>
 <mat-dialog-content>
+    
     <mat-form-field class="full-width">
-        <input matInput placeholder="Product Name" [(ngModel)]="product.name">
+        <input required matInput placeholder="Product Name" [(ngModel)]="product.name" name="name">
     </mat-form-field>
 
     <mat-form-field class="full-width">
-        <input matInput placeholder="Unit Name" [(ngModel)]="product.unit">
+        <input required matInput placeholder="Unit Name" [(ngModel)]="product.unit" name="unit">
     </mat-form-field>
 
     <mat-form-field class="full-width">
-        <input matInput placeholder="Base Rate" [(ngModel)]="product.base_rate">
+        <input required matInput placeholder="Base Rate" [(ngModel)]="product.base_rate" name="base_rate" (focus)="$event.target.select();" />
     </mat-form-field>
     
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-raised-button (click)="close(product)" color="primary">Save</button>
+  <button mat-raised-button (click)="close(product)" [disabled]="productForm.invalid" color="primary">Save</button>
   <button mat-button (click)="close(null)">Cancel</button>
 </mat-dialog-actions>
+</form>

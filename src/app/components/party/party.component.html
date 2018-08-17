@@ -1,0 +1,18 @@
+<button mat-fab class="fab-add" color="accent" (click)="addEdit(newParty)">
+  <mat-icon aria-label="App New Party">add</mat-icon>
+</button>
+<div fxLayout="row" fxLayoutAlign="left" style="padding: 15px 5px">
+<div fxLayout="column" fxFlex="100%">
+  <h3>Parties & Rates</h3>
+  <mat-list>
+    <!-- <h3 mat-subheader>Active partys</h3> -->
+    <mat-list-item *ngFor="let party of parties" class="item-list" [class.my-class]="party.self == 1">
+      <mat-icon mat-list-icon>battery_std</mat-icon>
+      <h4 mat-line (click)="addEdit(party)" style="cursor: pointer">{{party.name}} <small>{{party.code}}</small></h4>
+      <p mat-line (click)="addEdit(party)" style="cursor: pointer">{{ party.address}}, {{ party.email }}<br/>Deposit: {{ party.deposit | number }}, Balance: {{ party.initial_balance | number }} </p>
+      <mat-icon (click)="addEdit(party)" style="cursor: pointer">edit</mat-icon>
+      <mat-icon style="margin-left: 250px" (click)="delete(party)" style="cursor: pointer">delete</mat-icon>
+    </mat-list-item>
+  </mat-list>
+</div>
+</div>
