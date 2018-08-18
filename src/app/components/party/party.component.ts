@@ -51,7 +51,6 @@ export class PartyComponent implements OnInit {
   addEdit(party: Party) {
     const dialogRef = this.dialog.open(PartyEditComponent, {
       width: '650px',
-      height: '700px',
       disableClose: true,
       autoFocus: true,
       data: party

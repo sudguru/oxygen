@@ -1,42 +1,38 @@
-<h3 mat-dialog-title>{{ party.id === 0 ? 'Add' : 'Edit' }} Party</h3>
-<mat-dialog-content>
-  <mat-tab-group>
-    <mat-tab label="Basic" style="padding-top: 20px">
-      <form #partyForm="ngForm" novalidate>
+<form #partyForm="ngForm" novalidate>
+  <div fxLayout="row" fxLayoutAlign="left" style="padding: 15px 5px">
+    <h3 mat-dialog-title fxFlex="auto">{{ party.id === 0 ? 'Add' : 'Edit' }} Party</h3>
+    <mat-slide-toggle style="margin-top:10px" fxFlex="85px" [(ngModel)]="party.self" [checked]="party.self == 1" name="self">Self ?</mat-slide-toggle>
+  </div>
+  <mat-dialog-content>
 
-        <mat-slide-toggle [(ngModel)]="party.self" [checked]="party.self == 1" name="self">Self ? {{ party.self }}</mat-slide-toggle>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Party Name" [(ngModel)]="party.name" name="name" required>
-        </mat-form-field>
 
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Party Code" [(ngModel)]="party.code" name="code">
-        </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Party Name" [(ngModel)]="party.name" name="name" required>
+    </mat-form-field>
 
-        <mat-form-field class="full-width">
-          <input required type="email" matInput placeholder="Email" [(ngModel)]="party.email" name="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$">
-        </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Party Code" [(ngModel)]="party.code" name="code">
+    </mat-form-field>
 
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Address" [(ngModel)]="party.address" name="address">
-        </mat-form-field>
+    <mat-form-field class="full-width">
+      <input required type="email" matInput placeholder="Email" [(ngModel)]="party.email" name="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$">
+    </mat-form-field>
 
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Deposit" [(ngModel)]="party.deposit" name="deposit">
-        </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Address" [(ngModel)]="party.address" name="address">
+    </mat-form-field>
 
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Inital Balance" [(ngModel)]="party.initial_balance" name="initial_balance">
-        </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Deposit" [(ngModel)]="party.deposit" name="deposit">
+    </mat-form-field>
 
-        <mat-dialog-actions>
-          <button mat-raised-button (click)="close(party)" [disabled]="partyForm.invalid" color="primary">Save</button>
-          <button mat-button (click)="close(null)">Cancel</button>
-        </mat-dialog-actions>
-      </form>
-    </mat-tab>
-    <mat-tab label="Custom Rates" class="my-tab">
-      RAtes custome
-    </mat-tab>
-  </mat-tab-group>
-</mat-dialog-content>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Inital Balance" [(ngModel)]="party.initial_balance" name="initial_balance">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+
+    <button mat-raised-button (click)="close(party)" [disabled]="partyForm.invalid" color="primary">Save</button>
+    <button mat-button (click)="close(null)">Cancel</button>
+  </mat-dialog-actions>
+</form>

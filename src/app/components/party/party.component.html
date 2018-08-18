@@ -9,7 +9,15 @@
     <mat-list-item *ngFor="let party of parties" class="item-list" [class.my-class]="party.self == 1">
       <mat-icon mat-list-icon>battery_std</mat-icon>
       <h4 mat-line (click)="addEdit(party)" style="cursor: pointer">{{party.name}} <small>{{party.code}}</small></h4>
-      <p mat-line (click)="addEdit(party)" style="cursor: pointer">{{ party.address}}, {{ party.email }}<br/>Deposit: {{ party.deposit | number }}, Balance: {{ party.initial_balance | number }} </p>
+      <p mat-line (click)="addEdit(party)" style="cursor: pointer">
+        {{ party.address}}, {{ party.email }}<br/>
+        Deposit: {{ party.deposit | number }}, Balance: {{ party.initial_balance | number }}
+      </p>
+      
+      <div mat-line>
+        <div class="rates">asdf fsdaf </div>
+      </div>
+      
       <mat-icon (click)="addEdit(party)" style="cursor: pointer">edit</mat-icon>
       <mat-icon style="margin-left: 250px" (click)="delete(party)" style="cursor: pointer">delete</mat-icon>
     </mat-list-item>
