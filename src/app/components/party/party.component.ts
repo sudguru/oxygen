@@ -17,6 +17,7 @@ export class PartyComponent implements OnInit {
 
   parties: Party[];
   newParty: Party;
+  search: string;
   constructor(
     private partyService: PartyService,
     public dialog: MatDialog,
