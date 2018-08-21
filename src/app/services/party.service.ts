@@ -1,3 +1,6 @@
+import { Product } from './../models/product.model';
+import { ProductsService } from './products.service';
+import { PartyPrice } from './../models/party-price.model';
 import { Party } from './../models/party.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -9,7 +12,7 @@ import { Result } from '../models/result.model';
 export class PartyService {
   endpoint = 'http://localhost:3000';
   x: Result;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private productService: ProductsService ) { }
 
   async getParties() {
     try {
@@ -29,10 +32,10 @@ export class PartyService {
     }
   }
 
-  async addEditParty(party: Party) {
+  async addEditParty(party: Party, products: Product[]) {
     try {
       if (party.id === 0) {
-        this.x = await this.http.post(`${this.endpoint}/parties`, { party }).toPromise() as Result;
+        this.x = await this.http.post(`${this.endpoint}/parties`, { party, products }).toPromise() as Result;
       } else {
         this.x = await this.http.post(`${this.endpoint}/parties/edit/${party.id}`, { party }).toPromise() as Result;
       }
@@ -42,5 +45,45 @@ export class PartyService {
       return false;
     }
   }
+
+  async getPartyPrice(party_id: number) {
+    try {
+      return await this.http.get(`${this.endpoint}/parties/prices/${party_id}`).toPromise();
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async updatePrice(id: number, rate: number) {
+    try {
+      this.x = await this.http.post(`${this.endpoint}/parties/prices/edit/${id}`, {rate}).toPromise() as Result;
+      return this.x.data;
+    } catch (e) {
+      return null;
+    }
+  }
+  // async addPartyPrices(party_id: number) {
+  //   try {
+  //     let products: Product[];
+  //     await this.productService.getProducts().then((res: Result) => {
+  //       products = res.data;
+  //     });
+  //     this.x = await this.http.post(`${this.endpoint}/partiprices`, { products }).toPromise() as Result;
+  //     return this.x.data;
+  //   } catch (e) {
+  //     return null;
+  //   }
+  // }
+
+  // async updatePartyPrice(partyprice: PartyPrice) {
+  //   try {
+  //     this.x = await this.http.post(`${this.endpoint}/parties/edit/${partyprice.id}`, { partyprice }).toPromise() as Result;
+  //     console.log('add', this.x.data);
+  //     return this.x.data;
+  //   } catch (e) {
+  //     return false;
+  //   }
+  // }
+
 
 }

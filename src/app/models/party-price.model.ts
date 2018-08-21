@@ -3,4 +3,5 @@ export interface PartyPrice {
     product_id: number;
     party_id: number;
     rate: number;
+    name?: string;
 }

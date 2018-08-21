@@ -21,19 +21,21 @@
             <th>Email</th>
             <th>Deposit</th>
             <th>Balance</th>
+            <th>Rates</th>
             <th>&nbsp;</th>
           </tr>
 
         </thead>
         <tbody>
-          <tr *ngFor="let party of parties; let i = index" [class.my-class]="party.self == 1" mat-line (click)="addEdit(party)" style="cursor: pointer">
+          <tr *ngFor="let party of parties; let i = index" [class.my-class]="party.self == 1">
             <td>{{i+1}}</td>
-            <td>{{party.name}}</td>
-            <td>{{party.code}}</td>
-            <td>{{party.address}}</td>
-            <td>{{party.email}}</td>
-            <td>{{party.deposit}}</td>
-            <td>{{party.initial_balance}}</td>
+            <td (click)="addEdit(party)" style="cursor: pointer">{{party.name}}</td>
+            <td (click)="addEdit(party)" style="cursor: pointer">{{party.code}}</td>
+            <td (click)="addEdit(party)" style="cursor: pointer">{{party.address}}</td>
+            <td (click)="addEdit(party)" style="cursor: pointer">{{party.email}}</td>
+            <td (click)="addEdit(party)" style="cursor: pointer">{{party.deposit}}</td>
+            <td (click)="addEdit(party)" style="cursor: pointer">{{party.initial_balance}}</td>
+            <td (click)="manageRates(party)" class="manage">Manage</td>
             <td>
               <mat-icon style="margin-left: 250px" (click)="delete(party)" style="cursor: pointer">delete</mat-icon>
             </td>

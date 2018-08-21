@@ -28,6 +28,7 @@ import { AlertComponent } from './components/dialogs/alert/alert.component';
 import { ProductEditComponent } from './components/product-edit/product-edit.component';
 import { PartyComponent } from './components/party/party.component';
 import { PartyEditComponent } from './components/party-edit/party-edit.component';
+import { PartyPriceComponent } from './components/party-price/party-price.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -43,7 +44,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AlertComponent,
     ProductEditComponent,
     PartyComponent,
-    PartyEditComponent
+    PartyEditComponent,
+    PartyPriceComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +65,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [ElectronService],
   bootstrap: [AppComponent],
-  entryComponents: [AlertComponent, ProductEditComponent, PartyEditComponent]
+  entryComponents: [AlertComponent, ProductEditComponent, PartyEditComponent, PartyPriceComponent]
 })
 export class AppModule { }

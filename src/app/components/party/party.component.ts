@@ -1,3 +1,7 @@
+import { Product } from './../../models/product.model';
+import { ProductsService } from './../../services/products.service';
+import { PartyPrice } from './../../models/party-price.model';
+import { PartyPriceComponent } from './../party-price/party-price.component';
 import { PartyEditComponent } from './../party-edit/party-edit.component';
 import { PartyService } from './../../services/party.service';
 import { Party } from './../../models/party.model';
@@ -16,16 +20,20 @@ import { MatSnackBar } from '@angular/material';
 export class PartyComponent implements OnInit {
 
   parties: Party[];
+  partyprices: PartyPrice[];
+  products: Product[];
   newParty: Party;
   search: string;
   constructor(
     private partyService: PartyService,
+    private productService: ProductsService,
     public dialog: MatDialog,
     private snackbar: MatSnackBar
   ) { }
 
   ngOnInit() {
     this.getPartys();
+    this.getProducts();
     this.setNewParty();
   }
 
@@ -45,7 +53,20 @@ export class PartyComponent implements OnInit {
   getPartys () {
     this.partyService.getParties().then((res: Result) => {
       this.parties = res.data;
-      console.log(this.parties);
+      // console.log(this.parties);
+    });
+  }
+
+  getProducts () {
+    this.productService.getProducts().then((res: Result) => {
+      this.products = res.data;
+    });
+  }
+
+  async getPartyPrice (party_id: number) {
+    await this.partyService.getPartyPrice(party_id).then((res: Result) => {
+      this.partyprices = res.data;
+      console.log('ppp', this.partyprices);
     });
   }
 
@@ -56,10 +77,10 @@ export class PartyComponent implements OnInit {
       autoFocus: true,
       data: party
     });
-
+    const that = this;
     dialogRef.afterClosed().subscribe(readyParty => {
       if (readyParty) {
-        this.partyService.addEditParty(readyParty).then(res => {
+        this.partyService.addEditParty(readyParty, that.products).then(res => {
           console.log(res);
           if (res) {
             this.snackbar.open(`${readyParty.name} successfully added / modified.`, '', { duration: 3000 });
@@ -72,6 +93,21 @@ export class PartyComponent implements OnInit {
         this.getPartys();
       }
       this.setNewParty();
+    });
+  }
+
+  async manageRates(party: Party) {
+    await this.getPartyPrice(party.id);
+    console.log('pp', this.partyprices);
+    const data = {
+      partyprices: this.partyprices,
+      party_name: party.name
+    };
+    this.dialog.open(PartyPriceComponent, {
+      width: '650px',
+      disableClose: true,
+      autoFocus: true,
+      data: data
     });
   }
 

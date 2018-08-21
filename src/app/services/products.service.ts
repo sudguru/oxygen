@@ -1,3 +1,4 @@
+import { Party } from './../models/party.model';
 import { Product } from './../models/product.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -30,10 +31,10 @@ export class ProductsService {
     }
   }
 
-  async addEditProduct(product: Product) {
+  async addEditProduct(product: Product, parties: Party[]) {
     try {
       if (product.id === 0) {
-        this.x = await this.http.post(`${this.endpoint}/products`, { product }).toPromise() as Result;
+        this.x = await this.http.post(`${this.endpoint}/products`, { product, parties }).toPromise() as Result;
       } else {
         this.x = await this.http.post(`${this.endpoint}/products/edit/${product.id}`, { product }).toPromise() as Result;
       }

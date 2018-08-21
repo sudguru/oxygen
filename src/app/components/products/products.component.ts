@@ -1,3 +1,5 @@
+import { PartyService } from './../../services/party.service';
+import { Party } from './../../models/party.model';
 import { ProductEditComponent } from './../product-edit/product-edit.component';
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
@@ -17,14 +19,17 @@ export class ProductsComponent implements OnInit {
 
   products: Product[];
   newProduct: Product;
+  parties: Party[];
   constructor(
     private productService: ProductsService,
     public dialog: MatDialog,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private partyService: PartyService
   ) { }
 
   ngOnInit() {
     this.getProducts();
+    this.getParties();
     this.setNewProduct();
   }
 
@@ -39,7 +44,11 @@ export class ProductsComponent implements OnInit {
   getProducts () {
     this.productService.getProducts().then((res: Result) => {
       this.products = res.data;
-      console.log(this.products);
+    });
+  }
+  getParties () {
+    this.partyService.getParties().then((res: Result) => {
+      this.parties = res.data;
     });
   }
 
@@ -50,10 +59,10 @@ export class ProductsComponent implements OnInit {
       autoFocus: true,
       data: product
     });
-
+    const that = this;
     dialogRef.afterClosed().subscribe(readyProduct => {
       if (readyProduct) {
-        this.productService.addEditProduct(readyProduct).then(res => {
+        this.productService.addEditProduct(readyProduct, that.parties).then(res => {
           console.log(res);
           if (res) {
             this.snackbar.open(`${readyProduct.name} successfully added / modified.`, '', { duration: 3000 });
