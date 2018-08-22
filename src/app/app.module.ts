@@ -29,6 +29,15 @@ import { ProductEditComponent } from './components/product-edit/product-edit.com
 import { PartyComponent } from './components/party/party.component';
 import { PartyEditComponent } from './components/party-edit/party-edit.component';
 import { PartyPriceComponent } from './components/party-price/party-price.component';
+import { StaffComponent } from './components/staff/staff.component';
+import { ContainerComponent } from './components/container/container.component';
+import { ContainerEditComponent } from './components/container-edit/container-edit.component';
+import { TransactionComponent } from './components/transaction/transaction.component';
+import { TransactionEditComponent } from './components/transaction-edit/transaction-edit.component';
+import { ReportComponent } from './components/report/report.component';
+import { UserComponent } from './components/user/user.component';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
+import { HelpComponent } from './components/help/help.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -46,6 +55,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     PartyComponent,
     PartyEditComponent,
     PartyPriceComponent,
+    StaffComponent,
+    ContainerComponent,
+    ContainerEditComponent,
+    TransactionComponent,
+    TransactionEditComponent,
+    ReportComponent,
+    UserComponent,
+    UserEditComponent,
+    HelpComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +83,15 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [ElectronService],
   bootstrap: [AppComponent],
-  entryComponents: [AlertComponent, ProductEditComponent, PartyEditComponent, PartyPriceComponent]
+  entryComponents: [
+    AlertComponent,
+    ProductEditComponent,
+    PartyEditComponent,
+    PartyPriceComponent,
+    StaffComponent,
+    ContainerEditComponent,
+    TransactionEditComponent,
+    UserEditComponent
+  ]
 })
 export class AppModule { }

@@ -6,9 +6,9 @@
     
     <div fxLayout="row" fxLayoutAlign="left">
         <h3 fxFlex="auto">Parties & Rates</h3>
-        <mat-form-field fxFlex="150px">
-            <input matInput placeholder="Search" [(ngModel)]="search">
-        </mat-form-field>
+        <div fxFlex="200px">
+            <input matInput placeholder="Search" [ngModel]="search" class="my-text-box" (ngModelChange)='searchRecords($event)'>
+        </div>
     </div>
     <div class="table-responsive">
       <table class="table table-striped table-hover table-bordered">
@@ -22,6 +22,7 @@
             <th>Deposit</th>
             <th>Balance</th>
             <th>Rates</th>
+            <th>Staffs</th>
             <th>&nbsp;</th>
           </tr>
 
@@ -36,6 +37,7 @@
             <td (click)="addEdit(party)" style="cursor: pointer">{{party.deposit}}</td>
             <td (click)="addEdit(party)" style="cursor: pointer">{{party.initial_balance}}</td>
             <td (click)="manageRates(party)" class="manage">Manage</td>
+            <td (click)="manageStaffs(party)" class="manage">Manage</td>
             <td>
               <mat-icon style="margin-left: 250px" (click)="delete(party)" style="cursor: pointer">delete</mat-icon>
             </td>

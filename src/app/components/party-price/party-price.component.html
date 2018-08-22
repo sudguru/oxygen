@@ -16,7 +16,7 @@
     <tbody>
       <tr *ngFor="let partyprice of partyprices; let i = index">
         <td>{{i+1}}</td>
-        <td (click)="addEdit(party)" style="cursor: pointer">{{partyprice.name}}</td>
+        <td style="cursor: pointer">{{partyprice.name}}</td>
         <td>
           <input 
             (change)="updatePartyPrice(partyprice.id, partyprice.rate)"
@@ -24,6 +24,7 @@
             matInput
             placeholder="Rate"
             [(ngModel)]="partyprice.rate"
+            class = "dialog-text-box"
             >
         </td>
       </tr>

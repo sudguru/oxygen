@@ -1,3 +1,6 @@
+import { StaffComponent } from './../staff/staff.component';
+import { StaffService } from './../../services/staff.service';
+import { Staff } from './../../models/staff.model';
 import { Product } from './../../models/product.model';
 import { ProductsService } from './../../services/products.service';
 import { PartyPrice } from './../../models/party-price.model';
@@ -12,29 +15,62 @@ import { AlertComponent } from '../dialogs/alert/alert.component';
 import { MatDialog } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 
+import { Subject, pipe } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+
+
 @Component({
   selector: 'app-party',
   templateUrl: './party.component.html',
   styleUrls: ['./party.component.scss']
 })
 export class PartyComponent implements OnInit {
+  search: string;
+  searchChanged: Subject<string> = new Subject<string>();
 
   parties: Party[];
+  dbparties: Party[];
   partyprices: PartyPrice[];
+  staffs: Staff[];
   products: Product[];
   newParty: Party;
-  search: string;
   constructor(
     private partyService: PartyService,
     private productService: ProductsService,
     public dialog: MatDialog,
-    private snackbar: MatSnackBar
-  ) { }
+    private snackbar: MatSnackBar,
+    private staffService: StaffService
+  ) {
+
+      this.searchChanged.pipe(
+        debounceTime(500) // wait 300ms after the last event before emitting last event
+      ).pipe(
+        distinctUntilChanged() // only emit if value is different from previous value
+      ).subscribe(search => {
+        this.search = search;
+        if (this.search.length > 0) {
+          this.parties = this.filteredSearch(this.search);
+        } else {
+          this.parties = this.dbparties;
+        }
+      });
+   }
 
   ngOnInit() {
     this.getPartys();
     this.getProducts();
     this.setNewParty();
+  }
+
+  filteredSearch = function (search) {
+    const lowSearch = search.toLowerCase();
+    return this.parties.filter(function(s) {
+        return Object.values(s).some( val => String(val).toLowerCase().includes(lowSearch));
+    });
+  };
+
+  searchRecords(text: string) {
+    this.searchChanged.next(text);
   }
 
   setNewParty() {
@@ -52,8 +88,9 @@ export class PartyComponent implements OnInit {
 
   getPartys () {
     this.partyService.getParties().then((res: Result) => {
-      this.parties = res.data;
-      // console.log(this.parties);
+      this.dbparties = res.data;
+      this.parties = this.dbparties;
+      console.log(this.parties);
     });
   }
 
@@ -66,14 +103,19 @@ export class PartyComponent implements OnInit {
   async getPartyPrice (party_id: number) {
     await this.partyService.getPartyPrice(party_id).then((res: Result) => {
       this.partyprices = res.data;
-      console.log('ppp', this.partyprices);
+    });
+  }
+
+  async getStaffs (party_id: number) {
+    await this.staffService.getStaffs(party_id).then((res: Result) => {
+      this.staffs = res.data;
     });
   }
 
   addEdit(party: Party) {
     const dialogRef = this.dialog.open(PartyEditComponent, {
       width: '650px',
-      disableClose: true,
+      disableClose: false,
       autoFocus: true,
       data: party
     });
@@ -105,7 +147,23 @@ export class PartyComponent implements OnInit {
     };
     this.dialog.open(PartyPriceComponent, {
       width: '650px',
-      disableClose: true,
+      disableClose: false,
+      autoFocus: true,
+      data: data
+    });
+  }
+
+  async manageStaffs(party: Party) {
+    await this.getStaffs(party.id);
+    console.log('pp', this.staffs);
+    const data = {
+      staffs: this.staffs,
+      party_name: party.name,
+      party_id: party.id
+    };
+    this.dialog.open(StaffComponent, {
+      width: '700px',
+      disableClose: false,
       autoFocus: true,
       data: data
     });

@@ -1,6 +1,5 @@
 import { Product } from './../models/product.model';
 import { ProductsService } from './products.service';
-import { PartyPrice } from './../models/party-price.model';
 import { Party } from './../models/party.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';

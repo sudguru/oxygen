@@ -1,0 +1,111 @@
+
+<div fxLayout="row" fxLayoutAlign="left" style="padding: 15px 5px">
+  <h3 mat-dialog-title fxFlex="auto">Staffs <small class="muted">{{party_name}}</small></h3>
+  <mat-icon fxFlex="40px" (click)="close()" style="cursor: pointer; font-size: 120%">close</mat-icon>
+</div>
+<mat-dialog-content>
+<table class="table table-striped table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>SN</th>
+      <th>Name</th>
+      <th>Mobile</th>
+      <th>Email</th>
+      <th>&nbsp;</th>
+    </tr>
+
+  </thead>
+  <tbody>
+    <tr *ngFor="let staff of staffs; let i = index">
+      <td>{{i+1}}</td>
+      <td>
+        <input 
+          (change)="updateStaff(staff)"
+          type="text"
+          matInput
+          placeholder="Name"
+          [(ngModel)]="staff.name"
+          class = "dialog-text-box"
+          >
+      </td>
+      <td>
+        <input 
+          (change)="updateStaff(staff)"
+          type="text"
+          matInput
+          placeholder="Phone"
+          [(ngModel)]="staff.mobile"
+          class = "dialog-text-box"
+          >
+      </td>
+      <td>
+        <input 
+          (change)="updateStaff(staff)"
+          type="text"
+          matInput
+          placeholder="Email"
+          [(ngModel)]="staff.email"
+          class = "dialog-text-box"
+          >
+      </td>
+      <td><button mat-button (click)="deleteStaff(staff)" color="danger">Delete</button></td>
+    </tr>
+  </tbody>
+</table>
+<h4>Add</h4>
+<form #frmStaff="ngForm" novalidate>
+<table class="table table-striped table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>SN</th>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>&nbsp;</th>
+    </tr>
+
+  </thead>
+  <tbody>
+    <tr>
+      <td>NEW</td>
+      <td>
+        <input 
+          type="text"
+          matInput
+          placeholder="Name"
+          [(ngModel)]="newStaff.name"
+          required
+          name="name"
+          class = "dialog-text-box"
+          >
+      </td>
+      <td>
+        <input 
+          type="text"
+          matInput
+          placeholder="Phone"
+          [(ngModel)]="newStaff.mobile"
+          required
+          name="mobile"
+          class = "dialog-text-box"
+          >
+      </td>
+      <td>
+        <input 
+          type="text"
+          matInput
+          placeholder="Email"
+          [(ngModel)]="newStaff.email"
+          name="email"
+          class = "dialog-text-box"
+          >
+      </td>
+      <td>
+        <button mat-raised-button (click)="addStaff(newStaff)" [disabled]="frmStaff.invalid" color="primary">Save</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</form>
+</mat-dialog-content>
+
