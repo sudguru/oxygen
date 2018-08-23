@@ -61,28 +61,5 @@ export class PartyService {
       return null;
     }
   }
-  // async addPartyPrices(party_id: number) {
-  //   try {
-  //     let products: Product[];
-  //     await this.productService.getProducts().then((res: Result) => {
-  //       products = res.data;
-  //     });
-  //     this.x = await this.http.post(`${this.endpoint}/partiprices`, { products }).toPromise() as Result;
-  //     return this.x.data;
-  //   } catch (e) {
-  //     return null;
-  //   }
-  // }
-
-  // async updatePartyPrice(partyprice: PartyPrice) {
-  //   try {
-  //     this.x = await this.http.post(`${this.endpoint}/parties/edit/${partyprice.id}`, { partyprice }).toPromise() as Result;
-  //     console.log('add', this.x.data);
-  //     return this.x.data;
-  //   } catch (e) {
-  //     return false;
-  //   }
-  // }
-
 
 }

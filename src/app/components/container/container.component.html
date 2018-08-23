@@ -1,3 +1,44 @@
-<p>
-  container works!
-</p>
+<button mat-fab class="fab-add" color="accent" (click)="addContainer(newContainer)">
+  <mat-icon aria-label="App New Container">add</mat-icon>
+</button>
+<div fxLayout="row" fxLayoutAlign="left" style="padding: 15px 5px">
+  <div fxLayout="column" fxFlex="100%">
+    
+    <div fxLayout="row" fxLayoutAlign="left">
+        <h3 fxFlex="auto">Container Management</h3>
+        <div fxFlex="200px">
+            <input matInput placeholder="Search" [ngModel]="search" class="my-text-box" (ngModelChange)='searchRecords($event)'>
+        </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover table-bordered">
+        <thead>
+          <tr>
+            <th>SN</th>
+            <th>Name</th>
+            <th>capacity</th>
+            <th>Initial Status</th>
+            <th>&nbsp;</th>
+          </tr>
+
+        </thead>
+        <tbody>
+          <tr *ngFor="let party of containers; let i = index" [class.my-class]="container.initials == 1">
+            <td>{{i+1}}</td>
+            <td (click)="addEdit(party)" style="cursor: pointer">{{party.name}}</td>
+            <td (click)="addEdit(party)" style="cursor: pointer">{{party.code}}</td>
+            <td (click)="addEdit(party)" style="cursor: pointer">{{party.address}}</td>
+            <td (click)="addEdit(party)" style="cursor: pointer">{{party.email}}</td>
+            <td (click)="addEdit(party)" style="cursor: pointer">{{party.deposit}}</td>
+            <td (click)="addEdit(party)" style="cursor: pointer">{{party.initial_balance}}</td>
+            <td (click)="manageRates(party)" class="manage">Manage</td>
+            <td (click)="manageStaffs(party)" class="manage">Manage</td>
+            <td>
+              <mat-icon style="margin-left: 250px" (click)="delete(party)" style="cursor: pointer">delete</mat-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
