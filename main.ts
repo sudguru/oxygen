@@ -1,17 +1,17 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-const cmd = require('node-cmd');
-cmd.get(
-  'cd ../backOxygen && npm start',
-  function(err, data, stderr) {
-    if (!err) {
-      console.log('backend started');
-    } else {
-      console.log(err);
-    }
-  }
-);
+// const cmd = require('node-cmd');
+// cmd.get(
+//   'cd ../backOxygen && npm start',
+//   function(err, data, stderr) {
+//     if (!err) {
+//       console.log('backend started');
+//     } else {
+//       console.log(err);
+//     }
+//   }
+// );
 
 
 let win, serve;

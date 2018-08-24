@@ -1,1 +1,22 @@
 @import '../../../bootstrap.css';
+
+.fab-add {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.my-class {
+  font-weight: bold;
+  color: red;
+}
+
+.my-text-box {
+  border: 1px solid #666;
+  background-color: #efefef;
+  border-radius: 10px;
+  padding: 7px;
+  font-size: 16px;
+  margin-top: 15px;
+  outline: none;
+}

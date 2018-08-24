@@ -1,3 +1,4 @@
+import { Container } from './../models/container.model';
 import { Product } from './../models/product.model';
 import { ProductsService } from './products.service';
 import { Party } from './../models/party.model';
@@ -31,10 +32,10 @@ export class PartyService {
     }
   }
 
-  async addEditParty(party: Party, products: Product[]) {
+  async addEditParty(party: Party, products: Product[], containers: Container[]) {
     try {
       if (party.id === 0) {
-        this.x = await this.http.post(`${this.endpoint}/parties`, { party, products }).toPromise() as Result;
+        this.x = await this.http.post(`${this.endpoint}/parties`, { party, products, containers }).toPromise() as Result;
       } else {
         this.x = await this.http.post(`${this.endpoint}/parties/edit/${party.id}`, { party }).toPromise() as Result;
       }

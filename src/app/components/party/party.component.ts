@@ -1,3 +1,5 @@
+import { Container } from './../../models/container.model';
+import { ContainerService } from './../../services/container.service';
 import { StaffComponent } from './../staff/staff.component';
 import { StaffService } from './../../services/staff.service';
 import { Staff } from './../../models/staff.model';
@@ -34,12 +36,15 @@ export class PartyComponent implements OnInit {
   staffs: Staff[];
   products: Product[];
   newParty: Party;
+  containers: Container[];
+
   constructor(
     private partyService: PartyService,
     private productService: ProductsService,
     public dialog: MatDialog,
     private snackbar: MatSnackBar,
-    private staffService: StaffService
+    private staffService: StaffService,
+    private containerService: ContainerService
   ) {
 
       this.searchChanged.pipe(
@@ -59,6 +64,7 @@ export class PartyComponent implements OnInit {
   ngOnInit() {
     this.getPartys();
     this.getProducts();
+    this.getContainers();
     this.setNewParty();
   }
 
@@ -100,6 +106,12 @@ export class PartyComponent implements OnInit {
     });
   }
 
+  getContainers() {
+    this.containerService.getContainers().then((res: Result) => {
+      this.containers = res.data;
+    });
+  }
+
   async getPartyPrice (party_id: number) {
     await this.partyService.getPartyPrice(party_id).then((res: Result) => {
       this.partyprices = res.data;
@@ -122,7 +134,7 @@ export class PartyComponent implements OnInit {
     const that = this;
     dialogRef.afterClosed().subscribe(readyParty => {
       if (readyParty) {
-        this.partyService.addEditParty(readyParty, that.products).then(res => {
+        this.partyService.addEditParty(readyParty, that.products, that.containers).then(res => {
           console.log(res);
           if (res) {
             this.snackbar.open(`${readyParty.name} successfully added / modified.`, '', { duration: 3000 });

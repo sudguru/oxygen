@@ -1,3 +1,4 @@
+import { Party } from './../models/party.model';
 import { Container } from './../models/container.model';
 import { Result } from './../models/result.model';
 import { HttpClient } from '@angular/common/http';
@@ -29,10 +30,10 @@ export class ContainerService {
     }
   }
 
-  async addEditParty(container: Container) {
+  async addEditContainer(container: Container, parties: Party[]) {
     try {
       if (container.id === 0) {
-        this.x = await this.http.post(`${this.endpoint}/containers`, { container }).toPromise() as Result;
+        this.x = await this.http.post(`${this.endpoint}/containers`, { container, parties }).toPromise() as Result;
       } else {
         this.x = await this.http.post(`${this.endpoint}/containers/edit/${container.id}`, { container }).toPromise() as Result;
       }

@@ -1,3 +1,30 @@
-<p>
-  container-edit works!
-</p>
+<form #containerForm="ngForm" novalidate>
+  <div fxLayout="row" fxLayoutAlign="left" style="padding: 15px 5px">
+    <h3 mat-dialog-title fxFlex="auto">{{ container.id === 0 ? 'Add' : 'Edit' }} Container</h3>
+  </div>
+  <mat-dialog-content>
+
+
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Container Name" [(ngModel)]="container.name" name="name" required>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Capacity per Container" [(ngModel)]="container.capacity" name="capacity">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Unit" [(ngModel)]="container.unit" name="unit">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Initial Stock at the start of the Software" [(ngModel)]="container.initial_quantity" name="initial_quantity">
+    </mat-form-field>
+
+  </mat-dialog-content>
+  <mat-dialog-actions>
+
+    <button mat-raised-button (click)="close(container)" [disabled]="containerForm.invalid" color="primary">Save</button>
+    <button mat-button (click)="close(null)">Cancel</button>
+  </mat-dialog-actions>
+</form>
