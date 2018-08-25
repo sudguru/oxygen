@@ -1,5 +1,5 @@
+import { ContainerInitalStock } from './../../models/container-initial-stock.model';
 import { ProductsService } from './../../services/products.service';
-import { Product } from './../../models/product.model';
 import { Party } from './../../models/party.model';
 import { PartyService } from './../../services/party.service';
 import { AlertComponent } from './../dialogs/alert/alert.component';
@@ -26,8 +26,8 @@ export class ContainerComponent implements OnInit {
   newContainer: Container;
   containerTotal = [];
   parties: Party[];
-  products: Product[];
-  quantitytemp: number;
+  quantity = [];
+  initialstocks: ContainerInitalStock[];
 
   constructor(
     private containerService: ContainerService,
@@ -51,9 +51,18 @@ export class ContainerComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.initTasks();
     this.getContainers();
     this.getParties();
     this.setNewContainer();
+    this.getInitialStock();
+  }
+
+  async initTasks () {
+    await this.getContainers();
+    await this.getParties();
+    await this.setNewContainer();
+    this.getInitialStock();
   }
 
   filteredSearch = function (search) {
@@ -82,9 +91,6 @@ export class ContainerComponent implements OnInit {
     this.containerService.getContainers().then((res: Result) => {
       this.dbContainers = res.data;
       this.containers = this.dbContainers;
-      this.containers.forEach((container, index) => {
-        that.containerTotal[index] = 300;
-      });
     });
   }
 
@@ -94,6 +100,26 @@ export class ContainerComponent implements OnInit {
     });
   }
 
+  getInitialStock () {
+    const that = this;
+    this.containerService.getInitialStock().then((res: Result) => {
+      this.initialstocks = res.data;
+      // let pid;
+      res.data.forEach((record: ContainerInitalStock) => {
+          that.quantity[record.container_id + '_' + record.party_id] = record.quantity;
+          // pid = record.party_id;
+          // that.quantity[record.container_id] = { pid : record.quantity };
+          this.containers.forEach((container, j) => {
+            this.recalc(container.id, j);
+          });
+      });
+    });
+  }
+
+  recalc (container_id: number, j: number) {
+    this.containerTotal[j] = this.initialstocks.filter(rec => rec.container_id === container_id)
+    .reduce((tot, rec) => tot += rec.quantity, 0);
+  }
 
   addEdit(container: Container) {
     const dialogRef = this.dialog.open(ContainerEditComponent, {
@@ -145,7 +171,10 @@ export class ContainerComponent implements OnInit {
     });
   }
 
-  updateContainerInitalDistribution (i, j) {
-    // ok
+  updateContainerInitalDistribution (container_id: number, party_id: number, quantity: number, j: number) {
+    this.containerService.updateIntialStock(container_id, party_id, quantity).then(res => {
+      this.initialstocks = res;
+      this.recalc(container_id, j);
+    });
   }
 }

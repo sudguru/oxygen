@@ -56,19 +56,26 @@
           </tr>
 
         </thead>
-        <tbody *ngFor="let party of parties; let i = index">
-          <tr>
+        <tbody>
+          <tr *ngFor="let party of parties; let i = index">
             <td>{{i+1}}</td>
             <td>{{party.name}}</td>
-            <td *ngFor="let container of containers; let i = index">
+            <td *ngFor="let container of containers; let j = index">
                 <input 
-                (change)="updateContainerInitalDistribution(container.id, party.id)"
+                (change)="updateContainerInitalDistribution(container.id, party.id, quantity[container.id + '_' + party.id], j)"
                 type="number"
                 matInput
-                placeholder="Rate"
-                [(ngModel)]="quantitytemp"
+                placeholder="Quantity"
+                [(ngModel)]="quantity[container.id + '_' + party.id]"
                 class = "dialog-text-box"
                 >
+            </td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>Totals</td>
+            <td *ngFor="let container of containers; let j = index">
+              {{containerTotal[j]}}  
             </td>
           </tr>
         </tbody>

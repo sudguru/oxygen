@@ -44,17 +44,18 @@ export class ContainerService {
     }
   }
 
-  async getPartyPrice(party_id: number) {
+  async getInitialStock() {
     try {
-      return await this.http.get(`${this.endpoint}/parties/prices/${party_id}`).toPromise();
+      return await this.http.get(`${this.endpoint}/containers/initialstock`).toPromise();
     } catch (e) {
       return null;
     }
   }
 
-  async updatePrice(id: number, rate: number) {
+  async updateIntialStock(container_id: number, party_id: number, quantity: number) {
     try {
-      this.x = await this.http.post(`${this.endpoint}/parties/prices/edit/${id}`, {rate}).toPromise() as Result;
+      this.x = await this.http.post(`${this.endpoint}/containers/initialstock/edit`,
+      {container_id, party_id, quantity}).toPromise() as Result;
       return this.x.data;
     } catch (e) {
       return null;
