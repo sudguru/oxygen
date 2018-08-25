@@ -17,6 +17,8 @@ import { ElectronService } from './providers/electron.service';
 
 import { WebviewDirective } from './directives/webview.directive';
 
+import { HotkeyModule } from 'angular2-hotkeys';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -79,7 +81,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     BrowserAnimationsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    HotkeyModule.forRoot()
   ],
   providers: [ElectronService],
   bootstrap: [AppComponent],
