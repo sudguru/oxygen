@@ -28,6 +28,7 @@ export class ContainerComponent implements OnInit {
   parties: Party[];
   quantity = [];
   initialstocks: ContainerInitalStock[];
+  odd_start = 0;
 
   constructor(
     private containerService: ContainerService,
@@ -91,6 +92,7 @@ export class ContainerComponent implements OnInit {
     this.containerService.getContainers().then((res: Result) => {
       this.dbContainers = res.data;
       this.containers = this.dbContainers;
+      this.odd_start = this.dbContainers.length % 2;
     });
   }
 

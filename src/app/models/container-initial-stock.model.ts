@@ -3,4 +3,5 @@ export interface ContainerInitalStock {
     party_id: number;
     container_id: number;
     quantity: number;
+    party_quantity: number;
 }
